@@ -14,6 +14,7 @@ export default function Private({ children }: PrivateProps): any {
 	useEffect(() => {
 		const unsub = onAuthStateChanged(auth, (user) => {
 			setLoading(false);
+
 			if (!user) {
 				setSigned(false);
 				return;
@@ -27,7 +28,9 @@ export default function Private({ children }: PrivateProps): any {
 
 			localStorage.setItem('@dev-link', JSON.stringify(userData));
 
-			unsub();
+			return () => {
+				unsub();
+			};
 		});
 	}, []);
 
