@@ -1,3 +1,9 @@
+import Header from '../../components/Header';
+
 export default function Admin() {
-	return <div>Página ADMIN</div>;
+	return (
+		<div className="flex items-center flex-col min-h-screen pb-7 px-2">
+			<Header />
+		</div>
+	);
 }
