@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
+import { FaLink } from 'react-icons/fa';
+import { FiTrash } from 'react-icons/fi';
 
 export default function Admin() {
 	const [linkNameInput, setLinkNameInput] = useState('');
@@ -20,7 +22,10 @@ export default function Admin() {
 					value={linkNameInput}
 					onChange={(e) => setLinkNameInput(e.target.value)}
 				/>
-				<label className="text-white font-medium my-2">URL</label>
+				<label className="text-white font-medium my-2 flex items-center gap-1">
+					URL
+					<FaLink size={16} color="#FFF" />
+				</label>
 				<Input
 					type="url"
 					placeholder="Digite a URL..."
@@ -60,12 +65,36 @@ export default function Admin() {
 						className="w-11/12 max-w-lg flex flex-col items-center justify-center mt-6 rounded px-1 py-3"
 						style={{ backgroundColor: bgColorInput }}
 					>
-						<p className="font-medium" style={{ color: textColorInput }}>
-							{linkNameInput === '' ? 'Exemplo' : linkNameInput}
+						<p
+							className="font-medium select-none flex items-center gap-2"
+							style={{ color: textColorInput }}
+						>
+							{linkNameInput !== '' ? linkNameInput : 'Exemplo'}
 						</p>
 					</article>
 				</div>
+
+				<button
+					type="submit"
+					className="w-full py-3 bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-white flex items-center justify-center gap-2 rounded-md font-medium cursor-pointer"
+				>
+					Cadastrar
+					<FaLink size={16} color="#FFF" />
+				</button>
 			</form>
+
+			<h1 className="text-center text-white font-bold text-2xl mt-6">
+				Meus Links
+			</h1>
+			<article
+				className="flex items-center justify-between w-11/12 max-w-xl my-4 px-3 py-4 rounded-md select-none"
+				style={{ backgroundColor: '#2563EB' }}
+			>
+				<p style={{ color: '#FFF' }}>Canal do Youtube</p>
+				<button className="border border-white border-dashed rounded-md p-1 cursor-pointer">
+					<FiTrash size={16} color="#FFF" />
+				</button>
+			</article>
 		</div>
 	);
 }
