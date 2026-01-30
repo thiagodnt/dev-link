@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import { FaLink } from 'react-icons/fa';
 import { FiTrash } from 'react-icons/fi';
+
+import { db } from '../../services/firebaseConnection';
+import { addDoc, collection } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 export default function Admin() {
 	const [linkNameInput, setLinkNameInput] = useState('');
@@ -10,11 +14,46 @@ export default function Admin() {
 	const [textColorInput, setTextColorInput] = useState('#f1f1f1');
 	const [bgColorInput, setBgColorInput] = useState('#595959');
 
+	function handleSubmit(e: FormEvent) {
+		e.preventDefault();
+
+		if (linkNameInput === '' || urlInput === '') {
+			toast.info(
+				'Por favor, preencha as informações do link antes de continuar',
+			);
+			return;
+		}
+
+		addDoc(collection(db, 'links'), {
+			name: linkNameInput,
+			url: urlInput,
+			text_color: textColorInput,
+			background_color: bgColorInput,
+			created_at: new Date(),
+		})
+			.then(() => {
+				setLinkNameInput('');
+				setUrlInput('');
+				setTextColorInput('#f1f1f1');
+				setBgColorInput('#595959');
+				toast.success('Link cadastrado com sucesso');
+			})
+			.catch((error) => {
+				toast.error(
+					'Ocorreu um erro inesperado. Por favor, tente novamente mais tarde',
+				);
+				console.log('Erro ao cadastrar link ' + error);
+			});
+	}
+
 	return (
 		<div className="flex items-center flex-col min-h-screen pb-7 px-2">
 			<Header />
 
-			<form className="w-full max-w-xl flex flex-col mt-8 mb-4">
+			<form
+				className="w-full max-w-xl flex flex-col mt-8 mb-4"
+				onSubmit={handleSubmit}
+			>
 				<label className="text-white font-medium my-2">Nome do link</label>
 				<Input
 					type="text"
