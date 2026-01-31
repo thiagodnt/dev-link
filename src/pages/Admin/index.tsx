@@ -1,18 +1,57 @@
-import { type FormEvent, useState } from 'react';
+import { type FormEvent, useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import { FaFileSignature, FaLink } from 'react-icons/fa';
 import { FiTrash } from 'react-icons/fi';
 
 import { db } from '../../services/firebaseConnection';
-import { addDoc, collection } from 'firebase/firestore';
+import {
+	addDoc,
+	collection,
+	onSnapshot,
+	orderBy,
+	query,
+} from 'firebase/firestore';
 import { toast } from 'react-toastify';
+
+interface LinkProps {
+	id: string;
+	name: string;
+	url: string;
+	text_color: string;
+	background_color: string;
+}
 
 export default function Admin() {
 	const [linkNameInput, setLinkNameInput] = useState('');
 	const [urlInput, setUrlInput] = useState('');
 	const [textColorInput, setTextColorInput] = useState('#f1f1f1');
 	const [bgColorInput, setBgColorInput] = useState('#595959');
+	const [links, setLinks] = useState<LinkProps[]>([]);
+
+	useEffect(() => {
+		const linksRef = collection(db, 'links');
+		const queryRef = query(linksRef, orderBy('created_at', 'asc'));
+
+		const unsub = onSnapshot(queryRef, (snapshot) => {
+			let lista = [] as LinkProps[];
+
+			snapshot.forEach((doc) => {
+				lista.push({
+					id: doc.id,
+					name: doc.data().name,
+					url: doc.data().url,
+					text_color: doc.data().text_color,
+					background_color: doc.data().background_color,
+				});
+			});
+			setLinks(lista);
+		});
+
+		return () => {
+			unsub();
+		};
+	}, []);
 
 	function handleSubmit(e: FormEvent) {
 		e.preventDefault();
