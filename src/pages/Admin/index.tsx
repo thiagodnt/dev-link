@@ -167,15 +167,30 @@ export default function Admin() {
 			<h1 className="text-center text-white font-bold text-2xl mt-6">
 				Meus Links
 			</h1>
-			<article
-				className="flex items-center justify-between w-11/12 max-w-xl my-4 px-3 py-4 rounded-md select-none"
-				style={{ backgroundColor: '#2563EB' }}
-			>
-				<p style={{ color: '#FFF' }}>Canal do Youtube</p>
-				<button className="border border-white border-dashed rounded-md p-1 cursor-pointer">
-					<FiTrash size={16} color="#FFF" />
-				</button>
-			</article>
+			{links.map((link) => (
+				<article
+					key={link.id}
+					className="flex items-center justify-between w-11/12 max-w-xl my-4 px-3 py-4 rounded-md select-none"
+					style={{
+						backgroundColor: link.background_color,
+					}}
+				>
+					<a
+						className="w-full"
+						href={link.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{ color: link.text_color }}
+					>
+						{link.name}
+					</a>
+					<div className="w-16 flex justify-end">
+						<button className="border border-white border-dashed rounded-md p-1 cursor-pointer">
+							<FiTrash size={16} color="#FFF" />
+						</button>
+					</div>
+				</article>
+			))}
 		</div>
 	);
 }
