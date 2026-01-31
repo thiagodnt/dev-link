@@ -8,6 +8,8 @@ import { db } from '../../services/firebaseConnection';
 import {
 	addDoc,
 	collection,
+	deleteDoc,
+	doc,
 	onSnapshot,
 	orderBy,
 	query,
@@ -77,11 +79,24 @@ export default function Admin() {
 				setBgColorInput('#595959');
 				toast.success('Link cadastrado com sucesso');
 			})
-			.catch((error) => {
+			.catch(() => {
 				toast.error(
 					'Ocorreu um erro inesperado. Por favor, tente novamente mais tarde',
 				);
-				console.log('Erro ao cadastrar link ' + error);
+			});
+	}
+
+	function handleDelete(id: string) {
+		const docRef = doc(db, 'links', id);
+
+		deleteDoc(docRef)
+			.then(() => {
+				toast.success('Link excluído com sucesso');
+			})
+			.catch(() => {
+				toast.error(
+					'Erro ao excluir o link. Por favor, tente novamente mais tarde',
+				);
 			});
 	}
 
@@ -185,7 +200,10 @@ export default function Admin() {
 						{link.name}
 					</a>
 					<div className="w-16 flex justify-end">
-						<button className="border border-white border-dashed rounded-md p-1 cursor-pointer">
+						<button
+							className="border border-white border-dashed rounded-md p-1 cursor-pointer"
+							onClick={() => handleDelete(link.id)}
+						>
 							<FiTrash size={16} color="#FFF" />
 						</button>
 					</div>
