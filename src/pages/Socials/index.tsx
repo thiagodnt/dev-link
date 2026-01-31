@@ -1,7 +1,7 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { FaCheck, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { db } from '../../services/firebaseConnection';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import { toast } from 'react-toastify';
@@ -10,6 +10,26 @@ export default function Socials() {
 	const [facebook, setFacebook] = useState('');
 	const [instagram, setInstagram] = useState('');
 	const [linkedin, setLinkedin] = useState('');
+
+	useEffect(() => {
+		function getLinks() {
+			const docRef = doc(db, 'social', 'link');
+			getDoc(docRef)
+				.then((snapshot) => {
+					if (!snapshot.data()) {
+						return;
+					}
+					setFacebook(snapshot.data()?.facebook);
+					setInstagram(snapshot.data()?.instagram);
+					setLinkedin(snapshot.data()?.linkedin);
+				})
+				.catch(() => {
+					toast.error('Erro ao carregar links');
+				});
+		}
+
+		getLinks();
+	}, []);
 
 	function handleSubmit(e: FormEvent) {
 		e.preventDefault();
@@ -71,7 +91,7 @@ export default function Socials() {
 						type="submit"
 						className="w-full py-3 bg-blue-500 hover:bg-blue-600 transition-all duration-300 text-white flex items-center justify-center gap-2 rounded-md font-medium cursor-pointer"
 					>
-						Cadastrar
+						Salvar
 						<FaCheck size={16} color="#FFF" />
 					</button>
 				</div>
