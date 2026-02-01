@@ -1,4 +1,9 @@
-import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import {
+	FaFacebook,
+	FaInstagram,
+	FaLinkedin,
+	FaUserShield,
+} from 'react-icons/fa';
 import { db } from '../../services/firebaseConnection';
 import {
 	getDoc,
@@ -11,6 +16,9 @@ import {
 import Social from '../../components/Social';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router';
+import { FaArrowRightToBracket } from 'react-icons/fa6';
+import { BiLogIn } from 'react-icons/bi';
 
 interface LinkProps {
 	id: string;
@@ -84,7 +92,24 @@ export default function Home() {
 	}, []);
 
 	return (
-		<div className="flex flex-col w-full py-4 items-center justify-center">
+		<div className="flex flex-col w-full pb-7 px-2 items-center justify-center">
+			<header className="w-full max-w-2xl mt-4 px-1">
+				<nav className="w-full bg-white h-12 flex items-center justify-between rounded-lg px-3">
+					<div className="flex gap-4 font-medium">
+						<Link to="/">
+							<h1 className="text-blue-950 font-bold text-3xl">
+								Dev
+								<span className="bg-linear-to-r from-yellow-500 to-orange-400 bg-clip-text text-transparent">
+									Link
+								</span>
+							</h1>
+						</Link>
+					</div>
+					<Link to="/login" className="cursor-pointer">
+						<BiLogIn size={28} color="#db2629" />
+					</Link>
+				</nav>
+			</header>
 			<h1 className="text-3xl md:text-4xl font-bold text-white mt-20">
 				Th14g0d
 			</h1>
