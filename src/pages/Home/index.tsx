@@ -11,6 +11,7 @@ import {
 import Social from '../../components/Social';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import Header from '../../components/Header';
 
 interface LinkProps {
 	id: string;
@@ -85,6 +86,7 @@ export default function Home() {
 
 	return (
 		<div className="flex flex-col w-full py-4 items-center justify-center">
+			<Header />
 			<h1 className="text-3xl md:text-4xl font-bold text-white mt-20">
 				Th14g0d
 			</h1>
