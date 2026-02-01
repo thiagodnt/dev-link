@@ -8,7 +8,7 @@ export default function ErrorPage() {
 			<h1 className="text-5xl font-medium mb-4">Página não encontrada</h1>
 			<Link
 				to="/"
-				className="flex justify-center items-center gap-1 mt-2 bg-gray-400/60 px-4 py-2 rounded-lg transition-all hover:scale-105"
+				className="flex justify-center items-center gap-1 mt-2 bg-gray-400/60 px-4 py-2 rounded-lg transition-transform hover:scale-105"
 			>
 				<FaHouse size={18} color="#FFF" />
 				Voltar para a home

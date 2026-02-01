@@ -105,7 +105,10 @@ export default function Home() {
 							</h1>
 						</Link>
 					</div>
-					<Link to="/login" className="cursor-pointer">
+					<Link
+						to="/login"
+						className="cursor-pointer transition-transform hover:scale-105"
+					>
 						<BiLogIn size={28} color="#db2629" />
 					</Link>
 				</nav>

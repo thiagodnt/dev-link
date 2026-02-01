@@ -16,7 +16,10 @@ export default function Header() {
 					<Link to="/admin">Meus Links</Link>
 					<Link to="/admin/social">Redes Sociais</Link>
 				</div>
-				<button className="cursor-pointer" onClick={handleLogout}>
+				<button
+					className="cursor-pointer transition-transform hover:scale-105"
+					onClick={handleLogout}
+				>
 					<BiLogOut size={28} color="#db2629" />
 				</button>
 			</nav>
