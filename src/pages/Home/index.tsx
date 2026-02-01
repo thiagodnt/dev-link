@@ -1,9 +1,4 @@
-import {
-	FaFacebook,
-	FaInstagram,
-	FaLinkedin,
-	FaUserShield,
-} from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import { db } from '../../services/firebaseConnection';
 import {
 	getDoc,
@@ -17,7 +12,6 @@ import Social from '../../components/Social';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router';
-import { FaArrowRightToBracket } from 'react-icons/fa6';
 import { BiLogIn } from 'react-icons/bi';
 
 interface LinkProps {
