@@ -110,7 +110,7 @@ export default function Home() {
 					</Link>
 				</nav>
 			</header>
-			<h1 className="text-3xl md:text-4xl font-bold text-white mt-20">
+			<h1 className="text-3xl md:text-4xl font-bold text-white mt-8">
 				Th14g0d
 			</h1>
 			<span className="text-gray-50 mb-5 mt-3">Veja meus links 👇</span>
